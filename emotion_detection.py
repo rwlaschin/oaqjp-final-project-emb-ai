@@ -4,7 +4,6 @@ import json
 def format_output(emotion_data):
     predictions = emotion_data.get("emotionPredictions",[])[0]
     emotion_response = predictions.get("emotion")
-    print(emotion_response)
     dominant_emotion = { "name": None, "value": None}
 
     for (key,value) in emotion_response.items():
@@ -13,8 +12,6 @@ def format_output(emotion_data):
             dominant_emotion["value"] = value
 
     emotion_response["dominant_emotion"] = dominant_emotion["name"]
-
-    print(emotion_response)
     return emotion_response
     
 
