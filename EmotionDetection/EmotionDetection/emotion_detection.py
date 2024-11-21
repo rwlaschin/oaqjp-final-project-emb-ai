@@ -1,5 +1,6 @@
 import requests
 import json
+import http
 
 def format_output(emotion_data):
     predictions = emotion_data.get("emotionPredictions",[])[0]
@@ -26,8 +27,10 @@ def emotion_detector(text_to_analyze):
         response_json = response.json()
         # print('response', response_json)
         return format_output(response_json)
+    elif response.status_code == 400:
+        return { "anger": None, "disgust": None, "fear": None, "joy": None, "sadness": None, "dominant_emotion": None}
     else:
-        raise Error(response.status_code, response.text)
+        raise http.HTTPError(response.status_code, response.text)
 
 def pprint(data):
     print(json.dumps(data, indent=2))
